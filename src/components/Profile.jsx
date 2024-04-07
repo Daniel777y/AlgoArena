@@ -8,7 +8,7 @@ const Profile = () => {
   return (
     <>
       <p>User: {userInfo.username}</p>
-      <p>Rating: {userInfo.rating}</p>
+      <p>Average Rating: {userInfo.rating}</p>
     </>
   );
 };

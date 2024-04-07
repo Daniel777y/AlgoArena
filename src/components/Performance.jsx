@@ -10,17 +10,36 @@ import accounts from "../data/accounts";
 
 const Performance = () => {
   const { userInfo } = useUserInfo();
-  const [ datasets, setDatasets ] = useState([]);
-  const [ labels, setLabels ] = useState([]);
+  const [datasets, setDatasets] = useState([]);
+  const [labels, setLabels] = useState([]);
 
   const titleCallback = (tooltipItems) => {
     const titles = [];
     tooltipItems.forEach((tooltipItem) => {
       const dataset = datasets[tooltipItem.datasetIndex];
-      const contestName = dataset.data[tooltipItem.dataIndex].constestName;
+      const contestName = dataset.data[tooltipItem.dataIndex].contestName;
       titles.push(contestName);
     });
     return titles;
+  };
+
+  const footerCallback = (tooltipItems) => {
+    const dates = [];
+
+    const toDate = (unixTimestamp) => {
+      const date = new Date(unixTimestamp * 1000);
+      const month = `0${date.getMonth() + 1}`.slice(-2);
+      const day = `0${date.getDate()}`.slice(-2);
+      const year = date.getFullYear();
+      return `${month}-${day}-${year}`;
+    };
+
+    tooltipItems.forEach((tooltipItem) => {
+      const dataset = datasets[tooltipItem.datasetIndex];
+      const date = dataset.data[tooltipItem.dataIndex].x;
+      dates.push(toDate(date));
+    });
+    return dates;
   };
 
   const options = {
@@ -29,12 +48,18 @@ const Performance = () => {
       y: {
         beginAtZero: true,
       },
+      x: {
+        ticks: {
+          display: false,
+        },
+      },
     },
     plugins: {
       tooltip: {
         callbacks: {
           title: titleCallback,
-        }
+          footer: footerCallback,
+        },
       },
     },
   };
@@ -55,7 +80,8 @@ const Performance = () => {
         ratings.push({
           x: contest.timestamp,
           y: contest.rating,
-          constestName: contest.contestName,
+          contestName: contest.contestName,
+          timestamp: contest.timestamp,
         });
         chartLabels.push(contest.timestamp);
       });
@@ -69,15 +95,13 @@ const Performance = () => {
         tension: 0.1,
       });
     });
-    
+
     setDatasets(chartData);
 
     chartLabels.sort((a, b) => a - b);
-    setLabels(chartLabels.filter((value, index, self) => self.indexOf(value) === index));
-
-    console.log(labels);
-    console.log();
-
+    setLabels(
+      chartLabels.filter((value, index, self) => self.indexOf(value) === index),
+    );
   }, [userInfo]);
 
   return (
@@ -87,6 +111,5 @@ const Performance = () => {
     </div>
   );
 };
-//<Line options={options} data={datasets} />
 
 export default Performance;
