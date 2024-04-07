@@ -4,7 +4,7 @@ import { useUserInfo } from "../contexts/UserInfoContext";
 
 import accounts from "../data/accounts";
 
-const PerformanceChart = () => {
+const Performance = () => {
   const { userInfo } = useUserInfo();
   const [ performance, setPerformance ] = useState([]);
 
@@ -15,7 +15,7 @@ const PerformanceChart = () => {
 
   return (
     <div>
-      <h2>Performance Chart</h2>
+      <h2>Performance</h2>
       <ul>
         {performance.map((account, index) => (
           <li key={index}>
@@ -37,4 +37,4 @@ const PerformanceChart = () => {
   );
 };
 
-export default PerformanceChart;
+export default Performance;

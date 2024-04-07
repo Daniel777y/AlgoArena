@@ -1,19 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 import BaseBody from "../templates/BaseBody";
-import PerformanceChart from "../components/PerformanceChart";
-
-import { useUserInfo } from "../contexts/UserInfoContext";
+import Profile from "../components/Profile";
+import Performance from "../components/Performance";
+import UpcomingContests from "../components/UpcomingContests";
 
 const IndexPage = () => {
-  const { userInfo } = useUserInfo();
-
   return (
     <BaseBody>
       <h1>Index Page</h1>
-      <p>User: {userInfo.username} </p>
-      <p>Rating: {userInfo.rating} </p>
-      <PerformanceChart />
+      <Profile />
+      <Performance />
+      <UpcomingContests />
     </BaseBody>
   );
 };
