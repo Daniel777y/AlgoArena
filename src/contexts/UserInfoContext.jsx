@@ -5,10 +5,10 @@ const UserInfoContext = React.createContext();
 
 const UserInfoProvider = ({ children }) => {
   const [userInfo, setUserInfo] = useState({
+    id: 1,
     username: "C0ldSmi1e",
     email: "DanielYu3790@gmail.com",
-    codeforces: "C0ldSmi1e",
-    leetcode: "C0ldSmi1e_lc",
+    rating: 7777,
   });
 
   return (

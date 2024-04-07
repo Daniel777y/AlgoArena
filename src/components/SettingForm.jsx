@@ -5,11 +5,18 @@ import { useUserInfo } from "../contexts/UserInfoContext";
 import platforms from "../data/platforms";
 
 const SettingForm = () => {
-  const { userInfo, setUserInfo } = useUserInfo();
+  const { userInfo } = useUserInfo();
+  const [ username, setUsername ] = useState(userInfo.username);
+  const [ handle, setHandle ] = useState("");
   const [ currentPlatform, setCurrentPlatform ] = useState(0);
 
   const onSubmit = (e) => {
     e.preventDefault();
+    if (!username || !handle) {
+      alert("Please fill in all fields");
+      return;
+    }
+    console.log("add account", username, handle, currentPlatform);
   };
 
   return (
@@ -28,10 +35,7 @@ const SettingForm = () => {
             type="text"
             defaultValue={userInfo.username}
             onChange={(e) => {
-              setUserInfo({ 
-                ...userInfo,
-                username: e.target.value
-              });
+              setUsername(e.target.value);
             }}
             aria-label="User Name"
           />
@@ -45,7 +49,7 @@ const SettingForm = () => {
             id="platform"
             className="form-select" 
             onChange={(e) => setCurrentPlatform(e.target.selectedIndex)}
-            aria-label="Default select example"
+            aria-label="Platform"
           >
             {platforms.map((platform) => {
               return (
@@ -61,12 +65,8 @@ const SettingForm = () => {
             type="text"
             className="col-auto form-control"
             id="username"
-            value={userInfo[platforms[currentPlatform].name ? platforms[currentPlatform].name : ""]}
             onChange={(e) => {
-              setUserInfo({ 
-                ...userInfo,
-                [platforms[currentPlatform].name]: e.target.value
-              });
+              setHandle(e.target.value);
             }}
             aria-label="Handle"
           />
