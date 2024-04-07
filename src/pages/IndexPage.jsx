@@ -2,19 +2,18 @@ import React, { useState, useEffect } from "react";
 
 import BaseBody from "../templates/BaseBody";
 
+import { useUserInfo } from "../contexts/UserInfoContext";
+
 const IndexPage = () => {
-  const [user, setUser] = useState(null);
-  useEffect(() => {
-    fetch("https://codeforces.com/api/user.rating?handle=C0ldSmi1e")
-      .then((res) => res.json())
-      .then((data) => {
-        setUser(data);
-        console.log(data);
-      });
-  }, []);
+  const { userInfo } = useUserInfo();
+
   return (
     <BaseBody>
       <h1>Index Page</h1>
+      <p>User: </p>
+      <div>
+        Codeforces:
+      </div>
     </BaseBody>
   );
 };

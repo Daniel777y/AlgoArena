@@ -5,13 +5,19 @@ import IndexPage from "./pages/IndexPage";
 import AboutPage from "./pages/AboutPage";
 import ErrorPage from "./pages/ErrorPage";
 import SettingsPage from "./pages/SettingsPage";
+import RankingPage from "./pages/RankingPage";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { UserInfoProvider } from "./contexts/UserInfoContext";
 
 const router = createBrowserRouter([
   {
     path: "/index",
     element: <IndexPage />,
+  },
+  {
+    path: "/ranking",
+    element: <RankingPage />,
   },
   {
     path: "/settings",
@@ -30,6 +36,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <UserInfoProvider>
+      <RouterProvider router={router} />
+    </UserInfoProvider>
   </React.StrictMode>,
 );
