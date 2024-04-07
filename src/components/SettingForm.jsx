@@ -6,9 +6,9 @@ import platforms from "../data/platforms";
 
 const SettingForm = () => {
   const { userInfo } = useUserInfo();
-  const [ username, setUsername ] = useState(userInfo.username);
-  const [ handle, setHandle ] = useState("");
-  const [ currentPlatform, setCurrentPlatform ] = useState(0);
+  const [username, setUsername] = useState(userInfo.username);
+  const [handle, setHandle] = useState("");
+  const [currentPlatform, setCurrentPlatform] = useState(0);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -23,10 +23,7 @@ const SettingForm = () => {
     <>
       <form onSubmit={onSubmit}>
         <div className="row g-2 align-items-center">
-          <label
-            className="col-auto form-label"
-            htmlFor="username"
-          >
+          <label className="col-auto form-label" htmlFor="username">
             User Name:
           </label>
           <input
@@ -39,27 +36,18 @@ const SettingForm = () => {
             }}
             aria-label="User Name"
           />
-          <label
-            className="col-auto form-label"
-            htmlFor="platform"
-          >
+          <label className="col-auto form-label" htmlFor="platform">
             Platform:
           </label>
           <select
             id="platform"
-            className="form-select" 
+            className="form-select"
             onChange={(e) => setCurrentPlatform(e.target.selectedIndex)}
             aria-label="Platform"
           >
             {platforms.map((platform) => {
-              return (
-                <option
-                  key={platform.id}
-                >
-                  {platform.name}
-                </option>
-              );}
-            )}
+              return <option key={platform.id}>{platform.name}</option>;
+            })}
           </select>
           <input
             type="text"
