@@ -12,10 +12,10 @@ const SettingAccount = () => {
   const [ handle, setHandle ] = useState("");
 
   useEffect(() => {
-    const getUsers = async () => {
-      const users = await myFirebase.getAllUsers();
-      console.log(users);
-    };
+    //const getUsers = async () => {
+    //  const users = await myFirebase.getAllUsers();
+    //  console.log(users);
+    //};
   }, []);
 
   const onUpdateUsername = (e) => {
