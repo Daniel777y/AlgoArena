@@ -10,8 +10,8 @@ import accounts from "../data/accounts";
 
 const Performance = () => {
   const { userInfo } = useUserInfo();
-  const [datasets, setDatasets] = useState([]);
-  const [labels, setLabels] = useState([]);
+  const [ datasets, setDatasets ] = useState([]);
+  const [ labels, setLabels ] = useState([]);
 
   const titleCallback = (tooltipItems) => {
     const titles = [];

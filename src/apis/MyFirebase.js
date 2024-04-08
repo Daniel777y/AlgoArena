@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, doc, setDoc, getDoc, updateDoc, getDocs } from "firebase/firestore";
-// TODO: Add SDKs for Firebase products that you want to use
+
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 const MyFirebase = () => {
@@ -24,6 +24,28 @@ const MyFirebase = () => {
   me.getAllUsers = async () => {
     const usersRef = collection(db, "user");
     return (await getDocs(usersRef)).docs.map((doc) => doc.data());
+  };
+
+  me.getUser = async (user) => {
+  };
+
+  me.AddUser = async (user) => {
+  };
+
+  me.updateUser = async (user) => {
+  };
+
+  me.deleteUser = async (email) => {
+  };
+
+  me.getAllAccounts = async (user) => {
+    console.log(user);
+  };
+
+  me.addAccount = async (user, account) => {
+  };
+
+  me.deleteAccount = async (user, account) => {
   };
 
   return me;

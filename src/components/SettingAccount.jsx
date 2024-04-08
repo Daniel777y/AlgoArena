@@ -10,12 +10,16 @@ const SettingAccount = () => {
   const [ username, setUsername ] = useState(userInfo.username);
   const [ currentPlatformIndex, setCurrentPlatformIndex ] = useState(0);
   const [ handle, setHandle ] = useState("");
+  const [ accounts, setAccounts ] = useState([]);
 
   useEffect(() => {
-    //const getUsers = async () => {
-    //  const users = await myFirebase.getAllUsers();
-    //  console.log(users);
-    //};
+    const getAccounts = async () => {
+      const data = await myFirebase.getAllAccounts(userInfo);
+      if (data) {
+        setAccounts(data);
+      }
+    };
+    getAccounts();
   }, []);
 
   const onUpdateUsername = (e) => {
@@ -26,6 +30,10 @@ const SettingAccount = () => {
   const onAddAccount = (e) => {
     e.preventDefault();
     console.log(platforms[currentPlatformIndex].name, handle);
+  };
+
+  const onDelAccount = (e) => {
+    console.log(e.target);
   };
 
   return (
@@ -103,3 +111,21 @@ const SettingAccount = () => {
 };
 
 export default SettingAccount;
+
+/*
+ *
+ * <ul class="list-group">
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    A list item
+    <span class="badge text-bg-primary rounded-pill">14</span>
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    A second list item
+    <span class="badge text-bg-primary rounded-pill">2</span>
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    A third list item
+    <span class="badge text-bg-primary rounded-pill">1</span>
+  </li>
+</ul>
+ * */
