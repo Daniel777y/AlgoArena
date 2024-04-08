@@ -7,8 +7,9 @@ const Profile = () => {
 
   return (
     <>
-      <p>User: {userInfo.username}</p>
+      <h2>{userInfo.username}</h2>
       <p>Average Rating: {userInfo.rating}</p>
+      <p>Email: {userInfo.email}</p>
     </>
   );
 };

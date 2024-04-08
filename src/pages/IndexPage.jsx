@@ -8,7 +8,6 @@ import UpcomingContests from "../components/UpcomingContests";
 const IndexPage = () => {
   return (
     <BaseBody>
-      <h1>Index Page</h1>
       <Profile />
       <Performance />
       <UpcomingContests />

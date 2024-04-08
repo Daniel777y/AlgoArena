@@ -2,12 +2,16 @@ import React from "react";
 
 import BaseBody from "../templates/BaseBody";
 import SettingForm from "../components/SettingForm";
+import SettingUser from "../components/SettingUser";
+import SettingAccount from "../components/SettingAccount";
 
 const SettingsPage = () => {
   return (
     <BaseBody>
-      <h1>Settings Page</h1>
-      <SettingForm />
+      <div className="row">
+        <SettingAccount />
+        <SettingUser />
+      </div>
     </BaseBody>
   );
 };

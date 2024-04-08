@@ -3,7 +3,7 @@ import React from "react";
 const UpcomingContests = () => {
   return (
     <div>
-      <h1>Upcoming Contests</h1>
+      <h2>Upcoming Contests</h2>
     </div>
   );
 };

@@ -49,9 +49,7 @@ const Performance = () => {
         beginAtZero: true,
       },
       x: {
-        ticks: {
-          display: false,
-        },
+        display: false,
       },
     },
     plugins: {
