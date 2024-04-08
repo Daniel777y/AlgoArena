@@ -13,7 +13,7 @@ const SettingUser = () => {
 
   return (
     <div className="col">
-      <h2 className="form-title">Setting User</h2>
+      <h2 className="form-title">Switch User</h2>
       <form className="" onSubmit={onSwitchUser}>
         <div className="row g-2 align-items-center">
           <label htmlFor="email" className="form-label col-auto">Email:</label>
@@ -33,7 +33,7 @@ const SettingUser = () => {
         <div id="emailHelp" className="form-text">
           {"If email doesn't exist, it will create a new account."}
         </div>
-        <button type="submit" className="btn btn-primary">Switch User</button>
+        <button type="submit" className="btn btn-primary">Login</button>
       </form>
     </div>
   );

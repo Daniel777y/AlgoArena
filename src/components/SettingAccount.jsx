@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import { useUserInfo } from "../contexts/UserInfoContext";
 
+import myFirebase from "../apis/MyFirebase";
 import platforms from "../data/platforms";
 
 const SettingAccount = () => {
@@ -10,19 +11,26 @@ const SettingAccount = () => {
   const [ currentPlatformIndex, setCurrentPlatformIndex ] = useState(0);
   const [ handle, setHandle ] = useState("");
 
-  const onAddAccount = (e) => {
-    e.preventDefault();
-    console.log(platforms[currentPlatformIndex].name, handle);
-  };
+  useEffect(() => {
+    const getUsers = async () => {
+      const users = await myFirebase.getAllUsers();
+      console.log(users);
+    };
+  }, []);
 
   const onUpdateUsername = (e) => {
     e.preventDefault();
     console.log(username);
   };
 
+  const onAddAccount = (e) => {
+    e.preventDefault();
+    console.log(platforms[currentPlatformIndex].name, handle);
+  };
+
   return (
     <div className="col">
-      <h2 className="form-title">Setting Account</h2>
+      <h2 className="form-title">Account Settings</h2>
       <form className="" onSubmit={onUpdateUsername}>
         <div className="row g-2 align-items-center">
           <label htmlFor="username" className="form-label col-auto">
