@@ -1,11 +1,13 @@
 import React from "react";
 
 import BaseBody from "../templates/BaseBody";
+import RankingList from "../components/RankingList";
+
 
 const RankingPage = () => {
   return (
     <BaseBody>
-      <h1>Ranking Page</h1>
+      <RankingList />
     </BaseBody>
   );
 };
