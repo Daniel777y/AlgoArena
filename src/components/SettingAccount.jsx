@@ -45,15 +45,16 @@ const SettingAccount = () => {
       alert("Can't find the account. Please check the handle and try again.");
       return;
     }
-    const res = await myFirebase.addAccount({
+    const data = await myFirebase.addAccount({
       ...newAccount, 
       id: getAccountId(newAccount.platform, newAccount.handle),
       owner: userInfo.email
     });
-    if (!res) {
+    if (!data) {
       alert("Failed to add account. Please try again.");
       return;
     }
+    alert("Account added successfully.");
     setAccounts([...accounts, newAccount]);
     setHandle("");
   };

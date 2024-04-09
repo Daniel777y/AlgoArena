@@ -72,7 +72,13 @@ const MyFirebase = () => {
   };
 
   me.addAccount = async (account) => {
-    // TODO: remember to stringify the data
+    try {
+      await setDoc(doc(db, "account", account.id), account);
+      return account;
+    } catch (e) {
+      console.log(e);
+    }
+    return null;
   };
 
   me.deleteAccount = async (id) => {
