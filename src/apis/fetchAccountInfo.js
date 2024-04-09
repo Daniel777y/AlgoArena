@@ -20,7 +20,6 @@ const getCodeforcesAccountInfo = async (handle) => {
       const API_URL = `https://codeforces.com/api/user.info?handles=${handle}`;
       const res = await fetch(API_URL);
       const data = await res.json();
-      console.log(data);
       return {
         platform: "codeforces",
         handle: data.result[0].handle,

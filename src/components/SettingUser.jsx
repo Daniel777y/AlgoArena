@@ -28,12 +28,10 @@ const SettingUser = () => {
       return;
     }
     e.preventDefault();
-    console.log("Switch user to", email);
     const getUser = async () => {
       let data = await myFirebase.getUser(email);
       //console.log("User info", data);
       if (!data) {
-        console.log(typeof myFirebase);
         data = await myFirebase.addUser({ 
           email,
           username: email.split("@")[0],
@@ -66,24 +64,28 @@ const SettingUser = () => {
       return;
     }
     const deleteUser = async () => {
-      const data = await myFirebase.deleteUser(deleteEmail);
+      const accountData = await myFirebase.deleteAllAccounts(deleteEmail);
+      if (!accountData) {
+        alert("Failed to delete account.");
+        return;
+      }
+      const userData = await myFirebase.deleteUser(deleteEmail);
       //console.log("Delete user", data);
-      if (!data) {
+      if (!userData) {
         alert("Failed to delete user.");
         return;
       }
       alert("User deleted.");
       setUsers(users.filter((user) => user.email !== deleteEmail));
-      // TODO: delete all accounts of this user
     };
     deleteUser();
   };
 
   return (
-    <div className="col me-3">
-      <h2 className="form-title mt-2">Switch User</h2>
-      <form className="mt-3" onSubmit={onSwitchUser}>
-        <div className="row g-2 align-items-center mt-1">
+    <div className="col">
+      <h2 className="form-title">Switch User</h2>
+      <form className="" onSubmit={onSwitchUser}>
+        <div className="row g-2 align-items-center">
           <label htmlFor="email" className="form-label col-auto">
             Email:
           </label>
@@ -103,13 +105,13 @@ const SettingUser = () => {
         <div id="emailHelp" className="form-text">
           {"If email doesn't exist, it will create a new account."}
         </div>
-        <button type="submit" className="btn btn-primary mt-1">
+        <button type="submit" className="btn btn-primary">
           Login
         </button>
       </form>
       <div className="mt-3">
         <h2 className="form-title">All Users</h2>
-        <ul className="list-group mt-2">
+        <ul className="list-group">
           {users.map((user, index) => (
             <li
               key={index}

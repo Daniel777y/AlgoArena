@@ -100,6 +100,21 @@ const MyFirebase = () => {
     return null;
   };
 
+  me.deleteAllAccounts = async (email) => {
+    try {
+      const accountsRef = query(collection(db, "account"), where("owner", "==", email || ""));
+      const accounts = (await getDocs(accountsRef)).docs.map((doc) => doc.data());
+      console.log(accounts);
+      accounts.forEach(async (account) => {
+        await deleteDoc(doc(db, "account", account.id));
+      });
+      return accounts;
+    } catch (e) {
+      console.log(e);
+    }
+    return null;
+  };
+
   return me;
 };
 
