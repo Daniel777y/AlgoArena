@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 
+import { useNavigate } from "react-router-dom";
+
 import { useUserInfo } from "../contexts/UserInfoContext";
 import { useAccounts } from "../contexts/AccountsContext";
 
@@ -10,16 +12,30 @@ import platforms from "../data/platforms";
 import { getAccountId } from "../utils/idGenerator";
 
 const SettingAccount = () => {
-  const { userInfo } = useUserInfo();
+  const { userInfo, setUserInfo } = useUserInfo();
   const { accounts, setAccounts } = useAccounts();
 
   const [ username, setUsername ] = useState(userInfo.username);
   const [ currentPlatformIndex, setCurrentPlatformIndex ] = useState(0);
   const [ handle, setHandle ] = useState("");
+  const navigate = useNavigate();
 
   const onUpdateUsername = (e) => {
     e.preventDefault();
-    console.log(username);
+    const updateUsername = async () => {
+      const data = await myFirebase.updateUser(userInfo, username);
+      if (!data) {
+        alert("Failed to update username. Please try again.");
+        return;
+      }
+      alert("Username updated successfully.");
+      localStorage.setItem("curUser", JSON.stringify(data));
+      console.log("update username", data);
+      setUsername(data.username);
+      setUserInfo(data);
+      navigate("/");
+    };
+    updateUsername();
   };
 
   const onAddAccount = async (e) => {
@@ -64,7 +80,7 @@ const SettingAccount = () => {
               className="form-control"
               type="text"
               autoComplete="off"
-              value={userInfo.username}
+              value={username}
               onChange={(e) => setUsername(e.target.value)}
               maxLength="30"
               required

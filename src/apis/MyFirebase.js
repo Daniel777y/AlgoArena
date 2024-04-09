@@ -45,11 +45,18 @@ const MyFirebase = () => {
     return null;
   };
 
-  me.updateUser = async (user) => {
+  me.updateUser = async (user, username) => {
+    try {
+      const newUser = { ...user, username };
+      await updateDoc(doc(db, "user", user.email), newUser);
+      return newUser;
+    } catch (e) {
+      console.log(e);
+    }
+    return null;
   };
 
   me.deleteUser = async (email) => {
-    console.log(email);
     try {
       await deleteDoc(doc(db, "user", email));
       return email;

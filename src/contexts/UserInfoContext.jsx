@@ -4,13 +4,14 @@ import PropTypes from "prop-types";
 const UserInfoContext = React.createContext();
 
 const UserInfoProvider = ({ children }) => {
-  const [ userInfo, setUserInfo ] = useState(defaultUser);
+  const [ userInfo, setUserInfo ] = useState({});
 
   useEffect(() => {
     const curUser = localStorage.getItem("curUser");
     if (!curUser) {
       localStorage.setItem("curUser", JSON.stringify(defaultUser));
     }
+    console.log("curUser", curUser);
     setUserInfo(JSON.parse(curUser));
   }, []);
 

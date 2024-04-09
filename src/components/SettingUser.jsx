@@ -20,7 +20,7 @@ const SettingUser = () => {
         setUsers(data);
       }
     };
-    getAllUsers();
+    //getAllUsers();
   }, []);
 
   const onSwitchUser = (e) => {
@@ -72,6 +72,7 @@ const SettingUser = () => {
         alert("Failed to delete user.");
         return;
       }
+      alert("User deleted.");
       setUsers(users.filter((user) => user.email !== deleteEmail));
       // TODO: delete all accounts of this user
     };
