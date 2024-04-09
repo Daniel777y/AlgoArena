@@ -15,9 +15,7 @@ const Performance = () => {
   const [ labels, setLabels ] = useState([]);
 
   useEffect(() => {
-    console.log(accounts);
     const data = accounts.filter((account) => account.ownerId === userInfo.id);
-    console.log(data);
     const chartData = [];
     const chartLabels = [];
 

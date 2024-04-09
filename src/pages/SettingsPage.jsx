@@ -1,7 +1,6 @@
 import React from "react";
 
 import BaseBody from "../templates/BaseBody";
-import SettingForm from "../components/SettingForm";
 import SettingUser from "../components/SettingUser";
 import SettingAccount from "../components/SettingAccount";
 

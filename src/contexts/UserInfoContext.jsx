@@ -1,17 +1,18 @@
 import React, { useContext, useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
+import defaultUser from "../data/defaultUser";
+
 const UserInfoContext = React.createContext();
 
 const UserInfoProvider = ({ children }) => {
-  const [ userInfo, setUserInfo ] = useState({});
+  const [ userInfo, setUserInfo ] = useState(defaultUser);
 
   useEffect(() => {
     const curUser = localStorage.getItem("curUser");
     if (!curUser) {
       localStorage.setItem("curUser", JSON.stringify(defaultUser));
     }
-    console.log("curUser", curUser);
     setUserInfo(JSON.parse(curUser));
   }, []);
 
@@ -29,10 +30,3 @@ UserInfoProvider.propTypes = {
 const useUserInfo = () => useContext(UserInfoContext);
 
 export { useUserInfo, UserInfoProvider };
-
-
-const defaultUser = {
-  username: "C0ldSmi1e",
-  email: "DanielYu3790@gmail.com",
-  rating: 7777,
-};

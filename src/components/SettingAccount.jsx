@@ -46,7 +46,7 @@ const SettingAccount = () => {
       return;
     }
     const data = await myFirebase.addAccount({
-      ...newAccount, 
+      ...newAccount,
       id: getAccountId(newAccount.platform, newAccount.handle),
       owner: userInfo.email
     });
@@ -55,7 +55,17 @@ const SettingAccount = () => {
       return;
     }
     alert("Account added successfully.");
-    setAccounts([...accounts, newAccount]);
+    const contests = data.contests.map(contest => JSON.stringify(contest));
+    const newData = {
+      ...data,
+      contests,
+    };
+    const avgRating = accounts.length === 0 ? newData.rating : (userInfo.rating * accounts.length + newData.rating) / (accounts.length + 1);
+    setAccounts([...accounts, newData]);
+    setUserInfo({
+      ...userInfo,
+      rating: avgRating,
+    });
     setHandle("");
   };
 
