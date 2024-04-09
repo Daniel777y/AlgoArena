@@ -15,12 +15,16 @@ const RankingList = () => {
   }, []);
 
   return (
-    <div>
+    <div className="mx-3">
       <h1>Ranking List</h1>
-      <ul>
+      <ul className="list-group">
         {rankingList.map((user, index) => (
-          <li key={index}>
-            {index + 1}. {user.username} - {user.rating}
+          <li
+            key={index}
+            className="list-group-item d-flex justify-content-between align-items-center"
+          >
+            {index + 1}. {user.username}
+            <span className="badge text-bg-primary rounded-pill">{user.rating}</span>
           </li>
         ))}
       </ul>

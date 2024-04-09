@@ -97,10 +97,10 @@ const SettingAccount = () => {
   };
 
   return (
-    <div className="col">
-      <h2 className="form-title">Account Settings</h2>
-      <form className="" onSubmit={onUpdateUsername}>
-        <div className="row g-2 align-items-center">
+    <div className="col ms-3 border-end">
+      <h2 className="form-title mt-2">Account Settings</h2>
+      <form className="mt-3" onSubmit={onUpdateUsername}>
+        <div className="row g-2 align-items-center mt-1">
           <label htmlFor="username" className="form-label col-auto">
             Current User:
           </label>
@@ -117,16 +117,17 @@ const SettingAccount = () => {
             />
           </div>
         </div>
-        <div className="row g-2 align-items-center">
+        <div className="row g-2 align-items-center mt-1">
           <p className="col-auto">Email: </p>
           <p className="col-auto">{userInfo.email}</p>
         </div>
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn btn-primary mt-1">
           Update Username
         </button>
       </form>
-      <form className="" onSubmit={onAddAccount}>
-        <div className="row g-2">
+      <hr />
+      <form className="mt-3" onSubmit={onAddAccount}>
+        <div className="row g-2 mt-1">
           <label className="form-label col-auto" htmlFor="platform">
             Platform:
           </label>
@@ -143,7 +144,7 @@ const SettingAccount = () => {
             </select>
           </div>
         </div>
-        <div className="row g-2">
+        <div className="row g-2 mt-1">
           <label className="form-label col-auto" htmlFor="handle">
             Handle:
           </label>
@@ -162,7 +163,7 @@ const SettingAccount = () => {
             />
           </div>
         </div>
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn btn-primary mt-1">
           Add Account
         </button>
       </form>
@@ -170,7 +171,7 @@ const SettingAccount = () => {
         <h2 className="form-title">
           Linked Accounts
         </h2>
-        <ul className="list-group">
+        <ul className="list-group mt-2">
           {accounts.map((account, index) => (
             <li 
               key={index} 

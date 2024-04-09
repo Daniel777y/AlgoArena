@@ -105,8 +105,8 @@ const Performance = () => {
   };
 
   return (
-    <div>
-      <h2>Performance</h2>
+    <div className="mx-3">
+      <h2 className="border-bottom">Performance</h2>
       <Line options={options} data={{ labels: labels, datasets: datasets }} />
     </div>
   );
