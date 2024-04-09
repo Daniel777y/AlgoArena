@@ -8,8 +8,8 @@ import myFirebase from "../apis/MyFirebase";
 
 const SettingUser = () => {
   const { userInfo, setUserInfo } = useUserInfo();
-  const [ users, setUsers ] = useState([]);
-  const [ email, setEmail ] = useState("");
+  const [users, setUsers] = useState([]);
+  const [email, setEmail] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -32,7 +32,7 @@ const SettingUser = () => {
       let data = await myFirebase.getUser(email);
       //console.log("User info", data);
       if (!data) {
-        data = await myFirebase.addUser({ 
+        data = await myFirebase.addUser({
           email,
           username: email.split("@")[0],
           rating: 0,

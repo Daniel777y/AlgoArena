@@ -11,8 +11,8 @@ const Performance = () => {
   const { userInfo } = useUserInfo();
   const { accounts } = useAccounts();
 
-  const [ datasets, setDatasets ] = useState([]);
-  const [ labels, setLabels ] = useState([]);
+  const [datasets, setDatasets] = useState([]);
+  const [labels, setLabels] = useState([]);
 
   useEffect(() => {
     const data = accounts.filter((account) => account.ownerId === userInfo.id);
@@ -53,7 +53,6 @@ const Performance = () => {
       chartLabels.filter((value, index, self) => self.indexOf(value) === index),
     );
   }, [accounts]);
-
 
   const titleCallback = (tooltipItems) => {
     const titles = [];

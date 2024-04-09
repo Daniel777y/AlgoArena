@@ -1,17 +1,21 @@
-// return null or an object with the following structure:
-// {
-//   platform: string,
-//   handle: string,
-//   rating: number,
-//   contests: array of objects with the following structure:
-//     {
-//       constestName: string,
-//       rank: number,
-//       rating: number,
-//       timestamp: number
-//     }
-//  }
+/*
+ * return null or an object with the following structure:
+ *
+ * {
+ *  platform: string,
+ *  handle: string,
+ *  rating: number,
+ *  contests: array of objects with the following structure:
+ *    {
+ *      constestName: string,
+ *      rank: number,
+ *      rating: number,
+ *      timestamp: number
+ *    }
+ * }
+ */
 
+// TODO: Implement getLeetcodeAccountInfo
 
 const getCodeforcesAccountInfo = async (handle) => {
 

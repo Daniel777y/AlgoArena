@@ -15,12 +15,10 @@ const SettingAccount = () => {
   const { userInfo, setUserInfo } = useUserInfo();
   const { accounts, setAccounts } = useAccounts();
 
-  const [ username, setUsername ] = useState(userInfo.username);
-  const [ currentPlatformIndex, setCurrentPlatformIndex ] = useState(0);
-  const [ handle, setHandle ] = useState("");
+  const [username, setUsername] = useState(userInfo.username);
+  const [currentPlatformIndex, setCurrentPlatformIndex] = useState(0);
+  const [handle, setHandle] = useState("");
   const navigate = useNavigate();
-
-  // TODO: fix rating calculation
 
   const updateUserRating = async (newRating) => {
     const newUserInfo = {
@@ -59,7 +57,10 @@ const SettingAccount = () => {
     e.preventDefault();
 
     const updateAccount = async () => {
-      const newAccount = await fetchAccountInfo(platforms[currentPlatformIndex].name, handle);
+      const newAccount = await fetchAccountInfo(
+        platforms[currentPlatformIndex].name,
+        handle,
+      );
       if (!newAccount) {
         alert("Can't find the account. Please check the handle and try again.");
         return;
@@ -67,13 +68,13 @@ const SettingAccount = () => {
       const data = await myFirebase.addAccount({
         ...newAccount,
         id: getAccountId(newAccount.platform, newAccount.handle),
-        owner: userInfo.email
+        owner: userInfo.email,
       });
       if (!data) {
         alert("Failed to add account. Please try again.");
         return;
       }
-      const contests = data.contests.map(contest => JSON.stringify(contest));
+      const contests = data.contests.map((contest) => JSON.stringify(contest));
       const newData = {
         ...data,
         contests,
@@ -82,7 +83,9 @@ const SettingAccount = () => {
       if (accounts.length === 0) {
         newRating = newData.rating;
       } else {
-        newRating = (userInfo.rating * accounts.length + newData.rating) / (accounts.length + 1);
+        newRating =
+          (userInfo.rating * accounts.length + newData.rating) /
+          (accounts.length + 1);
       }
       setAccounts([...accounts, newData]);
       await updateUserRating(newRating);
@@ -108,9 +111,11 @@ const SettingAccount = () => {
       if (accounts.length === 1) {
         newRating = 0;
       } else {
-        newRating = (userInfo.rating * accounts.length - data.rating) / (accounts.length - 1);
+        newRating =
+          (userInfo.rating * accounts.length - data.rating) /
+          (accounts.length - 1);
       }
-      const newAccounts = accounts.filter(account => account.id !== id);
+      const newAccounts = accounts.filter((account) => account.id !== id);
       setAccounts(newAccounts);
       await updateUserRating(newRating);
     };
@@ -191,17 +196,15 @@ const SettingAccount = () => {
         </button>
       </form>
       <div className="mt-3">
-        <h2 className="form-title">
-          Linked Accounts
-        </h2>
+        <h2 className="form-title">Linked Accounts</h2>
         <ul className="list-group mt-2">
           {accounts.map((account, index) => (
-            <li 
-              key={index} 
+            <li
+              key={index}
               className="list-group-item d-flex justify-content-between align-items-center"
             >
               {account.platform} - {account.handle}
-              <span 
+              <span
                 className="badge text-bg-primary rounded-pill"
                 onClick={() => onDeleleAccount(account.id)}
               >

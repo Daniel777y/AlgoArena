@@ -24,7 +24,9 @@ const RankingList = () => {
             className="list-group-item d-flex justify-content-between align-items-center"
           >
             {index + 1}. {user.username}
-            <span className="badge text-bg-primary rounded-pill">{user.rating}</span>
+            <span className="badge text-bg-primary rounded-pill">
+              {user.rating}
+            </span>
           </li>
         ))}
       </ul>
