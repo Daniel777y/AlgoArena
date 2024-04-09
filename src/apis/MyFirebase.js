@@ -55,9 +55,8 @@ const MyFirebase = () => {
     return null;
   };
 
-  me.updateUser = async (user, username) => {
+  me.updateUser = async (user, newUser) => {
     try {
-      const newUser = { ...user, username };
       await updateDoc(doc(db, "user", user.email), newUser);
       return newUser;
     } catch (e) {

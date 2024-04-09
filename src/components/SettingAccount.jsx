@@ -20,17 +20,33 @@ const SettingAccount = () => {
   const [ handle, setHandle ] = useState("");
   const navigate = useNavigate();
 
+  // TODO: fix rating calculation
+
+  const updateUserRating = async (newRating) => {
+    const newUserInfo = {
+      ...userInfo,
+      rating: Math.round(newRating),
+    };
+    await myFirebase.updateUser(userInfo, newUserInfo);
+    setUserInfo(newUserInfo);
+    localStorage.setItem("curUser", JSON.stringify(newUserInfo));
+  };
+
   const onUpdateUsername = (e) => {
     e.preventDefault();
     const updateUsername = async () => {
-      const data = await myFirebase.updateUser(userInfo, username);
+      const newUserInfo = {
+        ...userInfo,
+        username,
+      };
+      const data = await myFirebase.updateUser(userInfo, newUserInfo);
       if (!data) {
         alert("Failed to update username. Please try again.");
         return;
       }
       alert("Username updated successfully.");
       localStorage.setItem("curUser", JSON.stringify(data));
-      console.log("update username", data);
+      //console.log("update username", data);
       setUsername(data.username);
       setUserInfo(data);
       localStorage.setItem("curUser", JSON.stringify(data));
@@ -41,59 +57,66 @@ const SettingAccount = () => {
 
   const onAddAccount = async (e) => {
     e.preventDefault();
-    const newAccount = await fetchAccountInfo(platforms[currentPlatformIndex].name, handle);
-    if (!newAccount) {
-      alert("Can't find the account. Please check the handle and try again.");
-      return;
-    }
-    const data = await myFirebase.addAccount({
-      ...newAccount,
-      id: getAccountId(newAccount.platform, newAccount.handle),
-      owner: userInfo.email
-    });
-    if (!data) {
-      alert("Failed to add account. Please try again.");
-      return;
-    }
-    alert("Account added successfully.");
-    const contests = data.contests.map(contest => JSON.stringify(contest));
-    const newData = {
-      ...data,
-      contests,
+
+    const updateAccount = async () => {
+      const newAccount = await fetchAccountInfo(platforms[currentPlatformIndex].name, handle);
+      if (!newAccount) {
+        alert("Can't find the account. Please check the handle and try again.");
+        return;
+      }
+      const data = await myFirebase.addAccount({
+        ...newAccount,
+        id: getAccountId(newAccount.platform, newAccount.handle),
+        owner: userInfo.email
+      });
+      if (!data) {
+        alert("Failed to add account. Please try again.");
+        return;
+      }
+      const contests = data.contests.map(contest => JSON.stringify(contest));
+      const newData = {
+        ...data,
+        contests,
+      };
+      let newRating = 0;
+      if (accounts.length === 0) {
+        newRating = newData.rating;
+      } else {
+        newRating = (userInfo.rating * accounts.length + newData.rating) / (accounts.length + 1);
+      }
+      setAccounts([...accounts, newData]);
+      await updateUserRating(newRating);
     };
-    const avgRating = accounts.length === 0 ? newData.rating : (userInfo.rating * accounts.length + newData.rating) / (accounts.length + 1);
-    setAccounts([...accounts, newData]);
-    const newUserInfo = {
-      ...userInfo,
-      rating: avgRating,
-    };
-    setUserInfo(newUserInfo);
-    localStorage.setItem("curUser", JSON.stringify(newUserInfo));
+
+    await updateAccount();
     setHandle("");
+    alert("Account added successfully.");
   };
 
-  const onDeleleAccount = (id) => {
+  const onDeleleAccount = async (id) => {
     if (!confirm("Are you sure you want to delete this account?")) {
       return;
     }
-    const deleteAccount = async (id) => {
+
+    const deleteAccount = async () => {
       const data = await myFirebase.deleteAccount(id);
       if (!data) {
         alert("Failed to delete account. Please try again.");
         return;
       }
-      alert("Account deleted successfully.");
+      let newRating = 0;
+      if (accounts.length === 1) {
+        newRating = 0;
+      } else {
+        newRating = (userInfo.rating * accounts.length - data.rating) / (accounts.length - 1);
+      }
       const newAccounts = accounts.filter(account => account.id !== id);
-      const avgRating = Math.floor(newAccounts.length === 0 ? 0 : newAccounts.reduce((acc, cur) => acc + cur.rating, 0) / newAccounts.length);
       setAccounts(newAccounts);
-      const newUserInfo = {
-        ...userInfo,
-        rating: avgRating,
-      };
-      setUserInfo(newUserInfo);
-      localStorage.setItem("curUser", JSON.stringify(newUserInfo));
+      await updateUserRating(newRating);
     };
-    deleteAccount(id);
+
+    await deleteAccount();
+    alert("Account deleted successfully.");
   };
 
   return (
