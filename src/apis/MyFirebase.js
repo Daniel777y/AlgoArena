@@ -94,6 +94,13 @@ const MyFirebase = () => {
   };
 
   me.deleteAccount = async (id) => {
+    try {
+      await deleteDoc(doc(db, "account", id));
+      return id;
+    } catch (e) {
+      console.log(e);
+    }
+    return null;
   };
 
   return me;

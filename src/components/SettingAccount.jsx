@@ -73,8 +73,22 @@ const SettingAccount = () => {
     if (!confirm("Are you sure you want to delete this account?")) {
       return;
     }
-    console.log("delete account ", id);
-    myFirebase.deleteAccount(id);
+    const deleteAccount = async (id) => {
+      const data = await myFirebase.deleteAccount(id);
+      if (!data) {
+        alert("Failed to delete account. Please try again.");
+        return;
+      }
+      alert("Account deleted successfully.");
+      const newAccounts = accounts.filter(account => account.id !== id);
+      const avgRating = Math.floor(newAccounts.length === 0 ? 0 : newAccounts.reduce((acc, cur) => acc + cur.rating, 0) / newAccounts.length);
+      setAccounts(newAccounts);
+      setUserInfo({
+        ...userInfo,
+        rating: avgRating,
+      });
+    };
+    deleteAccount(id);
   };
 
   return (
@@ -173,17 +187,3 @@ const SettingAccount = () => {
 };
 
 export default SettingAccount;
-
-/*
- *
- * <ul class="list-group">
-  <li class="list-group-item d-flex justify-content-between align-items-center">
-    A second list item
-    <span class="badge text-bg-primary rounded-pill">2</span>
-  </li>
-  <li class="list-group-item d-flex justify-content-between align-items-center">
-    A third list item
-    <span class="badge text-bg-primary rounded-pill">1</span>
-  </li>
-</ul>
- * */
