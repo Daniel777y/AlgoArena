@@ -26,10 +26,22 @@ const MyFirebase = () => {
     return (await getDocs(usersRef)).docs.map((doc) => doc.data());
   };
 
-  me.getUser = async (user) => {
+  me.getUser = async (email) => {
+    const userDoc = await getDoc(doc(db, "user", email));
+    if (userDoc.exists) {
+      return userDoc.data();
+    }
+    return null;
   };
 
-  me.AddUser = async (user) => {
+  me.addUser = async (user) => {
+    try {
+      await setDoc(doc(db, "user", user.email), user);
+      return user;
+    } catch (e) {
+      console.log(e);
+    }
+    return null;
   };
 
   me.updateUser = async (user) => {
@@ -39,13 +51,15 @@ const MyFirebase = () => {
   };
 
   me.getAllAccounts = async (user) => {
+    // TODO: remember to parse the data
     console.log(user);
   };
 
-  me.addAccount = async (user, account) => {
+  me.addAccount = async (account) => {
+    // TODO: remember to stringify the data
   };
 
-  me.deleteAccount = async (user, account) => {
+  me.deleteAccount = async (id) => {
   };
 
   return me;

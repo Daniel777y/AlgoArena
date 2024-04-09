@@ -4,9 +4,8 @@ import PropTypes from "prop-types";
 const UserInfoContext = React.createContext();
 
 const UserInfoProvider = ({ children }) => {
-  const [userInfo, setUserInfo] = useState({});
+  const [ userInfo, setUserInfo ] = useState({});
   const defaultUser = {
-    id: 1,
     username: "C0ldSmi1e",
     email: "DanielYu3790@gmail.com",
     rating: 7777,

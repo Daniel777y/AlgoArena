@@ -1,39 +1,53 @@
 import React, { useState, useEffect } from "react";
 
 import { useUserInfo } from "../contexts/UserInfoContext";
+import { useAccounts } from "../contexts/AccountsContext";
 
 import myFirebase from "../apis/MyFirebase";
+import fetchAccountInfo from "../apis/fetchAccountInfo";
+
 import platforms from "../data/platforms";
+import { getAccountId } from "../utils/idGenerator";
 
 const SettingAccount = () => {
   const { userInfo } = useUserInfo();
+  const { accounts, setAccounts } = useAccounts();
+
   const [ username, setUsername ] = useState(userInfo.username);
   const [ currentPlatformIndex, setCurrentPlatformIndex ] = useState(0);
   const [ handle, setHandle ] = useState("");
-  const [ accounts, setAccounts ] = useState([]);
-
-  useEffect(() => {
-    const getAccounts = async () => {
-      const data = await myFirebase.getAllAccounts(userInfo);
-      if (data) {
-        setAccounts(data);
-      }
-    };
-    getAccounts();
-  }, []);
 
   const onUpdateUsername = (e) => {
     e.preventDefault();
     console.log(username);
   };
 
-  const onAddAccount = (e) => {
+  const onAddAccount = async (e) => {
     e.preventDefault();
-    console.log(platforms[currentPlatformIndex].name, handle);
+    const newAccount = await fetchAccountInfo(platforms[currentPlatformIndex].name, handle);
+    if (!newAccount) {
+      alert("Can't find the account. Please check the handle and try again.");
+      return;
+    }
+    const res = await myFirebase.addAccount({
+      ...newAccount, 
+      id: getAccountId(newAccount.platform, newAccount.handle),
+      owner: userInfo.email
+    });
+    if (!res) {
+      alert("Failed to add account. Please try again.");
+      return;
+    }
+    setAccounts([...accounts, newAccount]);
+    setHandle("");
   };
 
-  const onDelAccount = (e) => {
-    console.log(e.target);
+  const onDeleleAccount = (id) => {
+    if (!confirm("Are you sure you want to delete this account?")) {
+      return;
+    }
+    console.log("delete account ", id);
+    myFirebase.deleteAccount(id);
   };
 
   return (
@@ -50,7 +64,7 @@ const SettingAccount = () => {
               className="form-control"
               type="text"
               autoComplete="off"
-              value={username}
+              value={userInfo.username}
               onChange={(e) => setUsername(e.target.value)}
               maxLength="30"
               required
@@ -106,6 +120,27 @@ const SettingAccount = () => {
           Add Account
         </button>
       </form>
+      <div className="mt-3">
+        <h2 className="form-title">
+          Linked Accounts
+        </h2>
+        <ul className="list-group">
+          {accounts.map((account, index) => (
+            <li 
+              key={index} 
+              className="list-group-item d-flex justify-content-between align-items-center"
+            >
+              {account.platform} - {account.handle}
+              <span 
+                className="badge text-bg-primary rounded-pill"
+                onClick={() => onDeleleAccount(account.id)}
+              >
+                X
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };
@@ -115,10 +150,6 @@ export default SettingAccount;
 /*
  *
  * <ul class="list-group">
-  <li class="list-group-item d-flex justify-content-between align-items-center">
-    A list item
-    <span class="badge text-bg-primary rounded-pill">14</span>
-  </li>
   <li class="list-group-item d-flex justify-content-between align-items-center">
     A second list item
     <span class="badge text-bg-primary rounded-pill">2</span>

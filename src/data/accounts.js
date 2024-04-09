@@ -1,7 +1,7 @@
 const accounts = [
   {
-    id: 1,
-    userId: 1,
+    id: "9635codeforcesC0ldSmi1e9566",
+    owner: "DanielYu3790@gmail.com",
     platform: "codeforces",
     handle: "C0ldSmi1e",
     rating: 1902,
@@ -37,15 +37,13 @@ const accounts = [
         rating: 1407,
       },
       {
-        contestName:
-          "Codeforces Round 680 (Div. 2, based on Moscow Team Olympiad)",
+        contestName: "Codeforces Round 680 (Div. 2, based on Moscow Team Olympiad)",
         timestamp: 1604235900,
         rank: 2492,
         rating: 1436,
       },
       {
-        contestName:
-          "Codeforces Round 681 (Div. 2, based on VK Cup 2019-2020 - Final)",
+        contestName: "Codeforces Round 681 (Div. 2, based on VK Cup 2019-2020 - Final)",
         timestamp: 1604334900,
         rank: 2053,
         rating: 1446,
@@ -75,8 +73,7 @@ const accounts = [
         rating: 1405,
       },
       {
-        contestName:
-          "Codeforces Round 687 (Div. 2, based on Technocup 2021 Elimination Round 2)",
+        contestName: "Codeforces Round 687 (Div. 2, based on Technocup 2021 Elimination Round 2)",
         timestamp: 1606640700,
         rank: 724,
         rating: 1498,
@@ -412,8 +409,8 @@ const accounts = [
     ],
   },
   {
-    id: 2,
-    userId: 1,
+    id: "8240leetcodeC0ldSmi1e511",
+    owner: "DanielYu3790@gmail.com",
     platform: "leetcode",
     handle: "C0ldSmi1e",
     rating: 2134,

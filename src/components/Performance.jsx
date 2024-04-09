@@ -5,13 +5,57 @@ import { Line } from "react-chartjs-2";
 import "chart.js/auto";
 
 import { useUserInfo } from "../contexts/UserInfoContext";
-
-import accounts from "../data/accounts";
+import { useAccounts } from "../contexts/AccountsContext";
 
 const Performance = () => {
   const { userInfo } = useUserInfo();
+  const { accounts } = useAccounts();
+
   const [ datasets, setDatasets ] = useState([]);
   const [ labels, setLabels ] = useState([]);
+
+  useEffect(() => {
+    console.log(accounts);
+    const data = accounts.filter((account) => account.ownerId === userInfo.id);
+    console.log(data);
+    const chartData = [];
+    const chartLabels = [];
+
+    data.forEach((account) => {
+      const ratings = [];
+      const r = Math.floor(Math.random() * 255);
+      const g = Math.floor(Math.random() * 255);
+      const b = Math.floor(Math.random() * 255);
+      const color = `rgb(${r}, ${g}, ${b})`;
+
+      account.contests.forEach((contest) => {
+        ratings.push({
+          x: contest.timestamp,
+          y: contest.rating,
+          contestName: contest.contestName,
+          timestamp: contest.timestamp,
+        });
+        chartLabels.push(contest.timestamp);
+      });
+
+      chartData.push({
+        label: `${account.platform.toUpperCase()} - ${account.handle}`,
+        data: ratings,
+        fill: false,
+        borderColor: color,
+        backgroundColor: color,
+        tension: 0.1,
+      });
+    });
+
+    setDatasets(chartData);
+
+    chartLabels.sort((a, b) => a - b);
+    setLabels(
+      chartLabels.filter((value, index, self) => self.indexOf(value) === index),
+    );
+  }, [userInfo]);
+
 
   const titleCallback = (tooltipItems) => {
     const titles = [];
@@ -61,46 +105,6 @@ const Performance = () => {
       },
     },
   };
-
-  useEffect(() => {
-    const data = accounts.filter((account) => account.userId === userInfo.id);
-    const chartData = [];
-    const chartLabels = [];
-
-    data.forEach((account) => {
-      const ratings = [];
-      const r = Math.floor(Math.random() * 255);
-      const g = Math.floor(Math.random() * 255);
-      const b = Math.floor(Math.random() * 255);
-      const color = `rgb(${r}, ${g}, ${b})`;
-
-      account.contests.forEach((contest) => {
-        ratings.push({
-          x: contest.timestamp,
-          y: contest.rating,
-          contestName: contest.contestName,
-          timestamp: contest.timestamp,
-        });
-        chartLabels.push(contest.timestamp);
-      });
-
-      chartData.push({
-        label: `${account.platform.toUpperCase()} - ${account.handle}`,
-        data: ratings,
-        fill: false,
-        borderColor: color,
-        backgroundColor: color,
-        tension: 0.1,
-      });
-    });
-
-    setDatasets(chartData);
-
-    chartLabels.sort((a, b) => a - b);
-    setLabels(
-      chartLabels.filter((value, index, self) => self.indexOf(value) === index),
-    );
-  }, [userInfo]);
 
   return (
     <div>

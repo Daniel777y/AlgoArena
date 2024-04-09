@@ -1,27 +1,55 @@
 import React, { useState, useEffect } from "react";
 
+import { useNavigate } from "react-router-dom";
+
 import { useUserInfo } from "../contexts/UserInfoContext";
 
-import myFirbase from "../apis/MyFirebase";
+import myFirebase from "../apis/MyFirebase";
 
 const SettingUser = () => {
-  const { userInfo } = useUserInfo();
-  const [users, setUsers] = useState([]);
-  const [email, setEmail] = useState(userInfo.email);
+  const { userInfo, setUserInfo } = useUserInfo();
+  const [ users, setUsers ] = useState([]);
+  const [ email, setEmail ] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getAllUsers = async () => {
-      const data = await myFirbase.getAllUsers();
+      const data = await myFirebase.getAllUsers();
+      console.log("All users", data);
       if (data) {
         setUsers(data);
       }
     };
-    //getAllUsers();
+    getAllUsers();
   }, []);
 
   const onSwitchUser = (e) => {
+    if (userInfo.email === email) {
+      alert("You are already using this account.");
+      return;
+    }
     e.preventDefault();
     console.log("Switch user to", email);
+    const getUser = async () => {
+      let data = await myFirebase.getUser(email);
+      console.log("User info", data);
+      if (!data) {
+        console.log(typeof myFirebase);
+        data = await myFirebase.addUser({ 
+          email,
+          username: email.split("@")[0],
+          rating: 0,
+        });
+      }
+      if (!data) {
+        alert("Failed to switch user.");
+        return;
+      }
+      localStorage.setItem("curUser", JSON.stringify(data));
+      setUserInfo(data);
+      navigate("/");
+    };
+    getUser();
   };
 
   const onDeleteUser = (e) => {
@@ -38,7 +66,7 @@ const SettingUser = () => {
       alert("You can't delete default user.");
       return;
     }
-    myFirbase.deleteUser(deleteEmail);
+    myFirebase.deleteUser(deleteEmail);
   };
 
   return (
@@ -72,9 +100,9 @@ const SettingUser = () => {
       <div className="mt-3">
         <h2 className="form-title">All Users</h2>
         <ul className="list-group">
-          {users.map((user) => (
+          {users.map((user, index) => (
             <li
-              key={user.email}
+              key={index}
               className="list-group-item d-flex justify-content-between align-items-center"
               data-email={user.email}
             >

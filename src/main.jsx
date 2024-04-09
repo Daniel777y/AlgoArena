@@ -9,6 +9,7 @@ import RankingPage from "./pages/RankingPage";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { UserInfoProvider } from "./contexts/UserInfoContext";
+import { AccountsProvider } from "./contexts/AccountsContext";
 
 const router = createBrowserRouter([
   {
@@ -37,7 +38,9 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <UserInfoProvider>
-      <RouterProvider router={router} />
+      <AccountsProvider>
+        <RouterProvider router={router} />
+      </AccountsProvider>
     </UserInfoProvider>
   </React.StrictMode>,
 );
