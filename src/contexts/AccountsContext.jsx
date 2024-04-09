@@ -9,7 +9,7 @@ import sampleAccounts from "../data/accounts";
 
 const AccountsContext = React.createContext();
 
-const DEV_MODE = true;
+const DEV_MODE = false;
 
 const AccountsProvider = ({ children }) => {
   const { userInfo } = useUserInfo();
@@ -23,7 +23,13 @@ const AccountsProvider = ({ children }) => {
       } else {
         const getAccounts = async () => {
           const data = await myFirebase.getAllAccounts(userInfo);
-          setAccounts(data);
+          const parsedData = data.map((account) => {
+            return {
+              ...account,
+              contests: account.contests.map((contest) => JSON.parse(contest)),
+            };
+          });
+          setAccounts(parsedData);
         };
         getAccounts();
       }
