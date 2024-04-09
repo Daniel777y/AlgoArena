@@ -15,7 +15,7 @@ const SettingUser = () => {
   useEffect(() => {
     const getAllUsers = async () => {
       const data = await myFirebase.getAllUsers();
-      console.log("All users", data);
+      //console.log("All users", data);
       if (data) {
         setUsers(data);
       }
@@ -32,7 +32,7 @@ const SettingUser = () => {
     console.log("Switch user to", email);
     const getUser = async () => {
       let data = await myFirebase.getUser(email);
-      console.log("User info", data);
+      //console.log("User info", data);
       if (!data) {
         console.log(typeof myFirebase);
         data = await myFirebase.addUser({ 
@@ -54,19 +54,28 @@ const SettingUser = () => {
 
   const onDeleteUser = (e) => {
     const deleteEmail = e.target.parentElement.dataset.email;
-    console.log("Delete user", deleteEmail);
-    if (!confirm("Are you sure to delete this user?")) {
-      return;
-    }
     if (deleteEmail === userInfo.email) {
       alert("You can't delete current user.");
       return;
     }
     if (deleteEmail === "DanielYu3790@gmail.com") {
-      alert("You can't delete default user.");
+      alert("You can't delete admin user.");
       return;
     }
-    myFirebase.deleteUser(deleteEmail);
+    if (!confirm("Are you sure to delete this user?")) {
+      return;
+    }
+    const deleteUser = async () => {
+      const data = await myFirebase.deleteUser(deleteEmail);
+      //console.log("Delete user", data);
+      if (!data) {
+        alert("Failed to delete user.");
+        return;
+      }
+      setUsers(users.filter((user) => user.email !== deleteEmail));
+      // TODO: delete all accounts of this user
+    };
+    deleteUser();
   };
 
   return (

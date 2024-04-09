@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, doc, setDoc, getDoc, updateDoc, getDocs } from "firebase/firestore";
+import { getFirestore, collection, doc, setDoc, getDoc, updateDoc, deleteDoc, getDocs } from "firebase/firestore";
 
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -27,6 +27,7 @@ const MyFirebase = () => {
   };
 
   me.getUser = async (email) => {
+    console.log(doc(db, "user", email));
     const userDoc = await getDoc(doc(db, "user", email));
     if (userDoc.exists) {
       return userDoc.data();
@@ -48,6 +49,14 @@ const MyFirebase = () => {
   };
 
   me.deleteUser = async (email) => {
+    console.log(email);
+    try {
+      await deleteDoc(doc(db, "user", email));
+      return email;
+    } catch (e) {
+      console.log(e);
+    }
+    return null;
   };
 
   me.getAllAccounts = async (user) => {
