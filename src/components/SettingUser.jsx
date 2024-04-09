@@ -15,12 +15,11 @@ const SettingUser = () => {
   useEffect(() => {
     const getAllUsers = async () => {
       const data = await myFirebase.getAllUsers();
-      //console.log("All users", data);
       if (data) {
         setUsers(data);
       }
     };
-    //getAllUsers();
+    getAllUsers();
   }, []);
 
   const onSwitchUser = (e) => {
@@ -47,6 +46,7 @@ const SettingUser = () => {
       }
       localStorage.setItem("curUser", JSON.stringify(data));
       setUserInfo(data);
+      alert("User switched.");
       navigate("/");
     };
     getUser();

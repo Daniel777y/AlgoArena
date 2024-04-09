@@ -1,7 +1,7 @@
 const defaultUser = {
   username: "C0ldSmi1e",
   email: "DanielYu3790@gmail.com",
-  rating: 7777,
+  rating: 1902,
 };
 
 export default defaultUser;

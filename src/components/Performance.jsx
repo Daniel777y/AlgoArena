@@ -52,7 +52,7 @@ const Performance = () => {
     setLabels(
       chartLabels.filter((value, index, self) => self.indexOf(value) === index),
     );
-  }, [userInfo]);
+  }, [accounts]);
 
 
   const titleCallback = (tooltipItems) => {

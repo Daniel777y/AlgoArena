@@ -38,7 +38,6 @@ const MyFirebase = () => {
   };
 
   me.getUser = async (email) => {
-    console.log(doc(db, "user", email));
     const userDoc = await getDoc(doc(db, "user", email));
     if (userDoc.exists) {
       return userDoc.data();
@@ -78,7 +77,6 @@ const MyFirebase = () => {
   };
 
   me.getAllAccounts = async (user) => {
-    // TODO: remember to parse the data
     const accountsRef = query(collection(db, "account"), where("owner", "==", user.email || ""));
     return (await getDocs(accountsRef)).docs.map((doc) => doc.data());
   };

@@ -33,6 +33,7 @@ const SettingAccount = () => {
       console.log("update username", data);
       setUsername(data.username);
       setUserInfo(data);
+      localStorage.setItem("curUser", JSON.stringify(data));
       navigate("/");
     };
     updateUsername();
@@ -62,10 +63,12 @@ const SettingAccount = () => {
     };
     const avgRating = accounts.length === 0 ? newData.rating : (userInfo.rating * accounts.length + newData.rating) / (accounts.length + 1);
     setAccounts([...accounts, newData]);
-    setUserInfo({
+    const newUserInfo = {
       ...userInfo,
       rating: avgRating,
-    });
+    };
+    setUserInfo(newUserInfo);
+    localStorage.setItem("curUser", JSON.stringify(newUserInfo));
     setHandle("");
   };
 
@@ -83,10 +86,12 @@ const SettingAccount = () => {
       const newAccounts = accounts.filter(account => account.id !== id);
       const avgRating = Math.floor(newAccounts.length === 0 ? 0 : newAccounts.reduce((acc, cur) => acc + cur.rating, 0) / newAccounts.length);
       setAccounts(newAccounts);
-      setUserInfo({
+      const newUserInfo = {
         ...userInfo,
         rating: avgRating,
-      });
+      };
+      setUserInfo(newUserInfo);
+      localStorage.setItem("curUser", JSON.stringify(newUserInfo));
     };
     deleteAccount(id);
   };
