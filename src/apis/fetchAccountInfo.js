@@ -72,13 +72,13 @@ const getLeetcodeAccountInfo = async (handle) => {
     const contests = data.contestParticipation.map((item) => (JSON.stringify({
       contestName: item.contest.title,
       rank: item.ranking,
-      rating: Math.round(item.rating),
+      rating: item.rating ? Math.round(item.rating) : 1500,
       timestamp: item.contest.startTime,
     })));
     return {
       platform: "leetcode",
       handle: handle,
-      rating: Math.round(data.contestRating),
+      rating: data.contestRating ? Math.round(data.contestRating) : 1500,
       contests,
     };
   } catch (e) {

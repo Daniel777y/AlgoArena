@@ -4,6 +4,8 @@ AlgoArena is a platform for competitive programming. It allows users to linked t
 
 [Business Requirements](https://github.com/Daniel777y/AlgoArena/blob/main/AlgoArenaBR.md)
 
+[Introduction Video]()
+
 ## Features
 
 Currently AlgoArena (Demo phase) supports the following features:
@@ -16,6 +18,8 @@ Currently AlgoArena (Demo phase) supports the following features:
 ## Getting Started
 
 ### Demo
+
+[AlgoArena Demo]()
 
 ### Run on your machine
 

@@ -83,7 +83,7 @@ const SettingUser = () => {
 
   return (
     <div className="col">
-      <h2 className="form-title">Switch User</h2>
+      <h2 className="form-title mt-2">Switch User</h2>
       <form className="" onSubmit={onSwitchUser}>
         <div className="row g-2 align-items-center">
           <label htmlFor="email" className="form-label col-auto">

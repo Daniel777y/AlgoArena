@@ -15,9 +15,9 @@ const SettingAccount = () => {
   const { userInfo, setUserInfo } = useUserInfo();
   const { accounts, setAccounts } = useAccounts();
 
-  const [username, setUsername] = useState(userInfo.username);
-  const [currentPlatformIndex, setCurrentPlatformIndex] = useState(0);
-  const [handle, setHandle] = useState("");
+  const [ username, setUsername ] = useState(userInfo.username);
+  const [ currentPlatformIndex, setCurrentPlatformIndex ] = useState(0);
+  const [ handle, setHandle ] = useState("");
   const navigate = useNavigate();
 
   const updateUserRating = async (newRating) => {
@@ -92,8 +92,8 @@ const SettingAccount = () => {
     };
 
     await updateAccount();
-    alert("Account added successfully.");
     setHandle("");
+    alert("Account added successfully.");
   };
 
   const onDeleleAccount = async (id) => {
