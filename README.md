@@ -2,6 +2,8 @@
 
 AlgoArena is a platform for competitive programming. It allows users to linked to their online judges accounts and keep track of their progress in solving problems.
 
+[Business Requirements](https://github.com/Daniel777y/AlgoArena/blob/main/AlgoArenaBR.md)
+
 ## Features
 
 Currently AlgoArena (Demo phase) supports the following features:
@@ -38,6 +40,15 @@ In the home page, you can see your ratings of all linked accounts and check the 
 
 In the ranking page, you can see all users' average ratings and rank them.
 
+## Todo
+
+- [ ] Add user system.
+- [ ] Support more online judges.
+- [ ] Require verification when linking accounts.
+- [ ] Add more statistics and analysis options.
+- [ ] Add recommendation system.
+- [ ] Add problem system.
+
 ## Contributing
 
 Welcome contributions to AlgoArena! If you have suggestions for improvements or bug fixes, please open an issue or submit a pull request.
@@ -50,4 +61,4 @@ Welcome contributions to AlgoArena! If you have suggestions for improvements or 
 
 ## License
 
-This project is licensed under the MIT License.
+This project is licensed under the [MIT License](https://github.com/Daniel777y/AlgoArena/blob/main/LICENSE).
