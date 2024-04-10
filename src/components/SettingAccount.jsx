@@ -92,8 +92,8 @@ const SettingAccount = () => {
     };
 
     await updateAccount();
-    setHandle("");
     alert("Account added successfully.");
+    setHandle("");
   };
 
   const onDeleleAccount = async (id) => {

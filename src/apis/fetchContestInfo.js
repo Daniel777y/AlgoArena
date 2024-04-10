@@ -17,9 +17,7 @@ const fetchUpcomingContests = async () => {
     if (platform === "codeforces") {
       const res = await fetch("https://codeforces.com/api/contest.list?gym=false");
       const data = await res.json();
-      console.log(data);
       const contests = data.result.filter((contest) => contest.phase === "BEFORE");
-      console.log(contests);
       return contests.map((contest) => ({
         platform: "Codeforces",
         name: contest.name,
@@ -40,5 +38,3 @@ const fetchUpcomingContests = async () => {
 };
 
 export { fetchUpcomingContests };
-
-fetchUpcomingContests().then((data) => console.log(data));
