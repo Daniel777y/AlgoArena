@@ -80,14 +80,11 @@ const SettingAccount = () => {
         contests,
       };
       let newRating = 0;
-      if (accounts.length === 0) {
-        newRating = newData.rating;
-      } else {
-        newRating =
-          (userInfo.rating * accounts.length + newData.rating) /
-          (accounts.length + 1);
+      const newAccounts = [...accounts, newData];
+      if (newAccounts.length > 0) {
+        newRating = newAccounts.reduce((acc, account) => acc + account.rating, 0) / newAccounts.length;
       }
-      setAccounts([...accounts, newData]);
+      setAccounts(newAccounts);
       await updateUserRating(newRating);
     };
 
@@ -107,15 +104,12 @@ const SettingAccount = () => {
         alert("Failed to delete account. Please try again.");
         return;
       }
-      let newRating = 0;
-      if (accounts.length === 1) {
-        newRating = 0;
-      } else {
-        newRating =
-          (userInfo.rating * accounts.length - data.rating) /
-          (accounts.length - 1);
-      }
+      console.log("delete account", data);
       const newAccounts = accounts.filter((account) => account.id !== id);
+      let newRating = 0;
+      if (newAccounts.length > 0) {
+        newRating = newAccounts.reduce((acc, account) => acc + account.rating, 0) / newAccounts.length;
+      }
       setAccounts(newAccounts);
       await updateUserRating(newRating);
     };
