@@ -2,7 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 
 import IndexPage from "./pages/IndexPage";
-import AboutPage from "./pages/AboutPage";
 import ErrorPage from "./pages/ErrorPage";
 import SettingsPage from "./pages/SettingsPage";
 import RankingPage from "./pages/RankingPage";
@@ -23,10 +22,6 @@ const router = createBrowserRouter([
   {
     path: "/settings",
     element: <SettingsPage />,
-  },
-  {
-    path: "/about",
-    element: <AboutPage />,
   },
   {
     path: "/",

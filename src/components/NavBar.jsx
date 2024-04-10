@@ -30,9 +30,6 @@ const NavBar = () => {
             <Link className="nav-link" to="/settings">
               Settings
             </Link>
-            <Link className="nav-link" to="/about">
-              About
-            </Link>
           </div>
         </div>
       </div>
