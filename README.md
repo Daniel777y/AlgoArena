@@ -19,7 +19,7 @@ Currently AlgoArena (Demo phase) supports the following features:
 
 ### Demo
 
-[AlgoArena Demo]()
+[AlgoArena Demo](https://algoarena-4df43.web.app/index)
 
 ### Run on your machine
 
