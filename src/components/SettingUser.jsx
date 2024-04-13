@@ -45,7 +45,7 @@ const SettingUser = () => {
       localStorage.setItem("curUser", JSON.stringify(data));
       setUserInfo(data);
       alert("User switched.");
-      navigate("/");
+      navigate("/index");
     };
     getUser();
   };
@@ -111,7 +111,7 @@ const SettingUser = () => {
       </form>
       <div className="mt-3">
         <h2 className="form-title">All Users</h2>
-        <ul className="list-group">
+        <ul id="all-users" className="list-group">
           {users.map((user, index) => (
             <li
               key={index}

@@ -48,7 +48,7 @@ const SettingAccount = () => {
       setUsername(data.username);
       setUserInfo(data);
       localStorage.setItem("curUser", JSON.stringify(data));
-      navigate("/");
+      navigate("/index");
     };
     updateUsername();
   };
