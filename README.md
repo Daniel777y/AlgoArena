@@ -44,6 +44,40 @@ In the home page, you can see your ratings of all linked accounts and check the 
 
 In the ranking page, you can see all users' average ratings and rank them.
 
+## Testing
+
+I use Cypress for end-to-end testing. To run the tests, you can use the following command:
+
+```bash
+npm run cy
+```
+
+These tests cover the basic functionalities of the app:
+
+* Load every page properly.
+    * It checks if the page is loaded properly by checking the `h1` tag.
+* Navigate between pages.
+    * It checks if the navigation bar works properly by visiting every page repeatedly.
+* Register a new user.
+    * It checks if the user can register successfully by logining in with a new email.
+    * If success, the index page should show the new user's name.
+* Switch between users.
+    * It checks if it's able to switch between users by logging in with a different email.
+    * If success, the index page should show the new user's name.
+* Delete a user.
+    * It checks if it's able to delete their account by clicking the `X` icon.
+    * If success, the all users list will not show the deleted user.
+* Change username.
+    * It checks if it's able to change the username by typing a new name and clicking the `Update Username` button.
+    * If success, the index page should show the new name.
+* Link to online judges accounts and delete it.
+    * It checks if it's able to link to online judges accounts by typing the username and clicking the `Add Account` button.
+    * If success, the all accounts list will show the linked account.
+    * It also checks if it's able to delete the linked account by clicking the `X` icon.
+    * If success, the all accounts list will not show the deleted account.
+
+![test result](https://github.com/Daniel777y/AlgoArena/blob/test/designImg/test.jpg?raw=true)
+
 ## Todo
 
 - [ ] Add user system.
