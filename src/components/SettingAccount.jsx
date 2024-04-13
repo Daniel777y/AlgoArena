@@ -191,7 +191,7 @@ const SettingAccount = () => {
       </form>
       <div className="mt-3">
         <h2 className="form-title">Linked Accounts</h2>
-        <ul className="list-group mt-2">
+        <ul id="all-accounts" className="list-group mt-2">
           {accounts.map((account, index) => (
             <li
               key={index}
