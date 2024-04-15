@@ -6,6 +6,8 @@ AlgoArena is a platform for competitive programming. It allows users to linked t
 
 [Introduction Video](https://youtu.be/PWTKe6VONuU)
 
+[Testing Video](https://youtu.be/urelTN-QfE8)
+
 ## Features
 
 Currently AlgoArena (Demo phase) supports the following features:
